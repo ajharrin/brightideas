@@ -1,0 +1,69 @@
+@model Idea
+<div class="jumbotron">
+    <h1>Hi @ViewBag.Username</h1>
+    <div>
+        <a href="/logout">Logout</a>
+    </div>
+</div>
+<div class="row">
+<form action="/newidea" method="post">
+    <div class="form-group col-sm-6">
+        <textarea name="Post" cols="50" rows="3" class="form-control"></textarea>
+    </div>
+    <div class="form-group col-sm-2">
+        <input type="submit" class="btn btn-success" value="Add Idea">
+        <br>
+    </div>
+</form>
+</div>
+<div class="container">
+    @foreach(Idea idea in ViewBag.Ideas)
+    {
+        <div class="row">
+            <div class="col-sm-4">
+                <h3><a href="/viewuser/@idea.Poster.UserId">@idea.Poster.Name</a> says</h3>
+                @{
+                    if(@ViewBag.UserId == @idea.UserId)
+                    {
+                        <a href="/delete/@idea.IdeaId">Delete Post</a>
+                    }
+                }
+            </div>
+            <div class="col-sm-8">
+                <div class="row">
+                    <!-- Post/Idea -->
+                    <h2>@idea.Post</h2>
+                </div>
+                <div class="row">
+                    @{
+                        bool liked = false;
+                        foreach(Like l in @idea.UsersLiking)
+                        {
+                            if(l.UserId == @ViewBag.UserId)
+                            {
+                                liked = true;
+                            }
+                        }
+                        if(liked)
+                        {
+                            <p>You liked this Post</p>
+                        }
+                        else
+                        {
+                            <a href="/like/@idea.IdeaId">Like</a>
+                        }
+                    }
+                    <!-- Link to Likes Page -->
+                    
+                        <p><a href="/view/@idea.IdeaId">@idea.UsersLiking.Count People</a> like this</p>
+                    
+                </div>
+            </div>
+            
+        </div>
+    }
+</div>
+
+                    
+
+

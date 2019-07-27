@@ -1,0 +1,26 @@
+@model Idea
+
+<a href="/Bright_Ideas">Bright Ideas</a>
+<a href="/Logout">Logout</a>
+
+<div class="jumbotron">
+    <h2>@ViewBag.Poster.Alias says</h2>
+    <h2>@Model.Post</h2>
+</div>
+
+
+
+<p>People Who Liked This Post:</p>
+<table class="table">
+    <tr>
+        <th>Alias</td>
+        <th>Name</td>
+    </tr>
+    @foreach(Like l in ViewBag.Likes)
+    {
+        <tr>
+            <td>@l.Liker.Alias</td>
+            <td>@l.Liker.Name</td>
+        </tr>
+    }
+</table>
